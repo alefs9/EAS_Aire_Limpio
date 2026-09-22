@@ -98,8 +98,8 @@ func kMeansSecuencial(datos []Observacion, k int, maxIter int) [][]float64 {
 }
 
 func main() {
-	rutaArchivo := "/content/drive/MyDrive/Concurrente/Procesado/dataset_kmeans_go.csv" 
-	
+	rutaArchivo := "/content/drive/MyDrive/Concurrente/Procesado/dataset_kmeans_go.csv"
+
 	file, err := os.Open(rutaArchivo)
 	if err != nil {
 		fmt.Printf("Error abriendo el archivo %s: %v\n", rutaArchivo, err)
@@ -114,7 +114,7 @@ func main() {
 		return
 	}
 
-	var dataset []Observacion
+	var datasetBase []Observacion
 
 	// Mapeo de columnas: 2:CO, 3:NO2, 4:PM10, 5:PM2.5, 6:SO2
 	for i := 1; i < len(registros); i++ {
@@ -123,15 +123,25 @@ func main() {
 		valPM10, _ := strconv.ParseFloat(registros[i][4], 64)
 		valPM25, _ := strconv.ParseFloat(registros[i][5], 64)
 		valSO2, _  := strconv.ParseFloat(registros[i][6], 64)
-		
+
 		obs := Observacion{
 			Features: []float64{valPM10, valPM25, valSO2, valNO2, valCO},
 			Cluster:  -1,
 		}
-		dataset = append(dataset, obs)
+		datasetBase = append(datasetBase, obs)
 	}
 
-	fmt.Printf("Total de observaciones procesadas: %d\n", len(dataset))
+	// =========================================================
+	// PRUEBA DE ESTRÉS: Multiplicador x1000
+	// Generamos la misma carga que en la versión concurrente
+	// =========================================================
+	var datasetMasivo []Observacion
+	multiplicador := 1000
+	for i := 0; i < multiplicador; i++ {
+		datasetMasivo = append(datasetMasivo, datasetBase...)
+	}
+
+	fmt.Printf("Total de observaciones masivas procesadas: %d\n", len(datasetMasivo))
 
 	// Configuración de hiperparámetros
 	K := 3           // Cantidad de clusters a encontrar
@@ -139,10 +149,10 @@ func main() {
 
 	// --- INICIO DE MEDICIÓN DE RENDIMIENTO ---
 	inicio := time.Now()
-	
-	fmt.Println("Ejecutando algoritmo K-Means Secuencial")
-	centroidesFinales := kMeansSecuencial(dataset, K, MaxIter)
-	
+
+	fmt.Println("Ejecutando algoritmo K-Means Secuencial Masivo...")
+	centroidesFinales := kMeansSecuencial(datasetMasivo, K, MaxIter)
+
 	duracion := time.Since(inicio)
 	// --- FIN DE MEDICIÓN ---
 
