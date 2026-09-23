@@ -2,6 +2,7 @@
 
 int cambiosTotales = 0;
 bool mutex = false;
+int workersTerminados = 0;
 
 /*
  * Cada Worker representa una goroutine del programa en Go.
@@ -23,18 +24,13 @@ proctype Worker(int id) {
 
     /*
      * Equivale al mu.Lock() de Go.
-     *
-     * El worker espera hasta que el mutex este libre.
      */
     atomic {
         !mutex -> mutex = true;
     }
 
     /*
-     * Esta es la parte que queremos proteger.
-     *
-     * En Go:
-     *     cambiosTotales += cambiosLocal
+     * Actualizamos el total de cambios.
      */
     cambiosTotales = cambiosTotales + cambiosLocal;
 
@@ -43,6 +39,15 @@ proctype Worker(int id) {
      */
     atomic {
         mutex = false;
+    }
+
+    /*
+     * Equivale al wg.Done() de Go.
+     *
+     * Indicamos que este worker ya termino.
+     */
+    atomic {
+        workersTerminados++
     }
 
     printf("Worker %d termino\n", id);
@@ -62,4 +67,13 @@ init {
     :: else ->
         break
     od;
+
+    /*
+     * Equivale al wg.Wait() de Go.
+     *
+     * Esperamos hasta que todos los workers terminen.
+     */
+    workersTerminados == NUM_WORKERS;
+
+    printf("Todos los workers terminaron\n");
 }
