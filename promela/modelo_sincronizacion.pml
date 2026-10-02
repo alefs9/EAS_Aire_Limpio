@@ -1,6 +1,8 @@
+// Cantidad de workers utilizada en la implementación concurrente en Go.
 #define NUM_WORKERS 4
-#define MAX_ITER    2   // Pocas iteraciones para facilitar el análisis con SPIN.
 
+// Se utilizan pocas iteraciones para reducir el espacio de estados analizado por SPIN.
+#define MAX_ITER 2
 
 int cambiosTotales    = 0;   // Cambios realizados por todos los workers.
 int sumaControl       = 0;   // Valor de referencia para verificar actualizaciones.
@@ -38,6 +40,12 @@ proctype Worker(int id) {
     atomic {
         !mutex -> mutex = true;
         enSeccionCritica++;
+
+    /*
+    * Propiedad de exclusión mutua:
+    * nunca debe existir más de un worker dentro
+    * de la sección crítica simultáneamente.
+    */
         assert(enSeccionCritica == 1);
     }
 
@@ -173,6 +181,8 @@ active proctype Main() {
 ltl terminacion {
     <> (workersTerminados == NUM_WORKERS)
 }
+
+
 
 ltl mutex_liberado {
     [] ((workersTerminados == NUM_WORKERS) -> !mutex)
