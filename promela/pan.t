@@ -22,38 +22,7 @@ settable(void)
 {	Trans *T;
 	Trans *settr(int, int, int, int, int, char *, int, int, int);
 
-	trans = (Trans ***) emalloc(5*sizeof(Trans **));
-
-	/* proctype 3: mutex_liberado */
-
-	trans[3] = (Trans **) emalloc(11*sizeof(Trans *));
-
-	trans[3][7]	= settr(64,0,6,1,0,".(goto)", 0, 2, 0);
-	T = trans[3][6] = settr(63,0,0,0,0,"DO", 0, 2, 0);
-	T = T->nxt	= settr(63,0,3,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(63,0,4,0,0,"DO", 0, 2, 0);
-	T = trans[ 3][3] = settr(60,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(60,2,1,0,0,"ATOMIC", 1, 2, 0);
-	trans[3][1]	= settr(58,0,6,3,3,"(!((!((workersTerminados==4))||!(mutex))))", 1, 2, 0); /* m: 2 -> 6,0 */
-	reached3[2] = 1;
-	trans[3][2]	= settr(0,0,0,0,0,"assert(!(!((!((workersTerminados==4))||!(mutex)))))",0,0,0);
-	trans[3][4]	= settr(61,0,6,1,0,"(1)", 0, 2, 0);
-	trans[3][5]	= settr(62,0,6,1,0,"goto T0_init", 0, 2, 0);
-	trans[3][8]	= settr(65,0,9,1,0,"break", 0, 2, 0);
-	trans[3][9]	= settr(66,0,10,1,0,"(1)", 0, 2, 0);
-	trans[3][10]	= settr(67,0,0,4,4,"-end-", 0, 3500, 0);
-
-	/* proctype 2: terminacion */
-
-	trans[2] = (Trans **) emalloc(7*sizeof(Trans *));
-
-	trans[2][4]	= settr(55,0,3,1,0,".(goto)", 0, 2, 0);
-	T = trans[2][3] = settr(54,0,0,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(54,0,1,0,0,"DO", 0, 2, 0);
-	trans[2][1]	= settr(52,0,3,5,0,"(!((workersTerminados==4)))", 1, 2, 0);
-	trans[2][2]	= settr(53,0,3,1,0,"goto T0_init", 0, 2, 0);
-	trans[2][5]	= settr(56,0,6,1,0,"break", 0, 2, 0);
-	trans[2][6]	= settr(57,0,0,6,6,"-end-", 0, 3500, 0);
+	trans = (Trans ***) emalloc(3*sizeof(Trans **));
 
 	/* proctype 1: Main */
 
@@ -63,46 +32,46 @@ settable(void)
 	T = trans[1][26] = settr(46,0,0,0,0,"DO", 0, 2, 0);
 	T = T->nxt	= settr(46,0,1,0,0,"DO", 0, 2, 0);
 	    T->nxt	= settr(46,0,24,0,0,"DO", 0, 2, 0);
-	trans[1][1]	= settr(21,0,2,7,0,"((iter<2))", 0, 2, 0);
-	trans[1][2]	= settr(22,0,3,8,8,"cambiosTotales = 0", 1, 2, 0);
-	trans[1][3]	= settr(23,0,4,9,9,"sumaControl = 0", 1, 2, 0);
-	trans[1][4]	= settr(24,0,5,10,10,"workersTerminados = 0", 1, 2, 0);
-	trans[1][5]	= settr(25,0,11,11,11,"i = 0", 0, 2, 0);
+	trans[1][1]	= settr(21,0,2,3,0,"((iter<2))", 0, 2, 0);
+	trans[1][2]	= settr(22,0,3,4,4,"cambiosTotales = 0", 1, 2, 0);
+	trans[1][3]	= settr(23,0,4,5,5,"sumaControl = 0", 1, 2, 0);
+	trans[1][4]	= settr(24,0,5,6,6,"workersTerminados = 0", 1, 2, 0);
+	trans[1][5]	= settr(25,0,11,7,7,"i = 0", 0, 2, 0);
 	trans[1][12]	= settr(32,0,11,1,0,".(goto)", 0, 2, 0);
 	T = trans[1][11] = settr(31,0,0,0,0,"DO", 0, 2, 0);
 	T = T->nxt	= settr(31,0,6,0,0,"DO", 0, 2, 0);
 	    T->nxt	= settr(31,0,9,0,0,"DO", 0, 2, 0);
-	trans[1][6]	= settr(26,0,7,12,0,"((i<4))", 0, 2, 0);
-	trans[1][7]	= settr(27,0,8,13,13,"(run Worker(i))", 0, 2, 0);
-	trans[1][8]	= settr(28,0,11,14,14,"i = (i+1)", 0, 2, 0);
-	trans[1][9]	= settr(29,0,14,15,15,"((i>=4))", 0, 2, 0);
+	trans[1][6]	= settr(26,0,7,8,0,"((i<4))", 0, 2, 0);
+	trans[1][7]	= settr(27,0,8,9,9,"(run Worker(i))", 0, 2, 0);
+	trans[1][8]	= settr(28,0,11,10,10,"i = (i+1)", 0, 2, 0);
+	trans[1][9]	= settr(29,0,14,11,11,"((i>=4))", 0, 2, 0);
 	trans[1][10]	= settr(30,0,14,1,0,"goto :b1", 0, 2, 0);
 	trans[1][13]	= settr(33,0,14,1,0,"break", 0, 2, 0);
-	trans[1][14]	= settr(34,0,15,16,0,"((workersTerminados==4))", 1, 2, 0);
-	trans[1][15]	= settr(35,0,21,17,0,"assert((cambiosTotales==sumaControl))", 1, 2, 0);
+	trans[1][14]	= settr(34,0,15,12,0,"((workersTerminados==4))", 1, 2, 0);
+	trans[1][15]	= settr(35,0,21,13,0,"assert((cambiosTotales==sumaControl))", 1, 2, 0);
 	T = trans[1][21] = settr(41,0,0,0,0,"IF", 0, 2, 0);
 	T = T->nxt	= settr(41,0,16,0,0,"IF", 0, 2, 0);
 	    T->nxt	= settr(41,0,19,0,0,"IF", 0, 2, 0);
-	trans[1][16]	= settr(36,0,17,18,0,"((cambiosTotales==0))", 1, 2, 0);
-	trans[1][17]	= settr(37,0,31,19,19,"printf('Convergencia alcanzada en iter %d\\n',iter)", 0, 2, 0); /* m: 29 -> 0,31 */
+	trans[1][16]	= settr(36,0,17,14,0,"((cambiosTotales==0))", 1, 2, 0);
+	trans[1][17]	= settr(37,0,31,15,15,"printf('Convergencia alcanzada en iter %d\\n',iter)", 0, 2, 0); /* m: 29 -> 0,31 */
 	reached1[29] = 1;
 	trans[1][18]	= settr(38,0,29,1,0,"goto :b0", 0, 2, 0); /* m: 29 -> 0,31 */
 	reached1[29] = 1;
 	trans[1][22]	= settr(42,0,23,1,0,".(goto)", 0, 2, 0); /* m: 23 -> 0,26 */
 	reached1[23] = 1;
 	trans[1][19]	= settr(39,0,20,2,0,"else", 0, 2, 0);
-	trans[1][20]	= settr(40,0,26,20,20,"(1)", 0, 2, 0); /* m: 23 -> 26,0 */
+	trans[1][20]	= settr(40,0,26,16,16,"(1)", 0, 2, 0); /* m: 23 -> 26,0 */
 	reached1[23] = 1;
-	trans[1][23]	= settr(43,0,26,21,21,"iter = (iter+1)", 0, 2, 0);
-	trans[1][24]	= settr(44,0,31,22,22,"((iter>=2))", 0, 2, 0); /* m: 29 -> 31,0 */
+	trans[1][23]	= settr(43,0,26,17,17,"iter = (iter+1)", 0, 2, 0);
+	trans[1][24]	= settr(44,0,31,18,18,"((iter>=2))", 0, 2, 0); /* m: 29 -> 31,0 */
 	reached1[29] = 1;
 	trans[1][25]	= settr(45,0,29,1,0,"goto :b0", 0, 2, 0); /* m: 29 -> 0,31 */
 	reached1[29] = 1;
 	trans[1][28]	= settr(48,0,29,1,0,"break", 0, 2, 0);
-	trans[1][29]	= settr(49,0,31,23,23,"printf('Todos los workers terminaron\\n')", 0, 2, 0); /* m: 30 -> 0,31 */
+	trans[1][29]	= settr(49,0,31,19,19,"printf('Todos los workers terminaron\\n')", 0, 2, 0); /* m: 30 -> 0,31 */
 	reached1[30] = 1;
 	trans[1][30]	= settr(0,0,0,0,0,"printf('Terminado sin errores de sincronizacion\\n')",0,0,0);
-	trans[1][31]	= settr(51,0,0,24,24,"-end-", 0, 3500, 0);
+	trans[1][31]	= settr(51,0,0,20,20,"-end-", 0, 3500, 0);
 
 	/* proctype 0: Worker */
 
@@ -112,37 +81,37 @@ settable(void)
 	T = T->nxt	= settr(3,0,1,0,0,"IF", 0, 2, 0);
 	T = T->nxt	= settr(3,0,2,0,0,"IF", 0, 2, 0);
 	    T->nxt	= settr(3,0,3,0,0,"IF", 0, 2, 0);
-	trans[0][1]	= settr(0,0,11,25,25,"cambiosLocal = 0", 0, 2, 0); /* m: 6 -> 0,11 */
+	trans[0][1]	= settr(0,0,11,21,21,"cambiosLocal = 0", 0, 2, 0); /* m: 6 -> 0,11 */
 	reached0[6] = 1;
 	trans[0][5]	= settr(4,0,6,1,0,".(goto)", 0, 2, 0); /* m: 6 -> 0,11 */
 	reached0[6] = 1;
-	trans[0][2]	= settr(1,0,11,26,26,"cambiosLocal = 1", 0, 2, 0); /* m: 6 -> 0,11 */
+	trans[0][2]	= settr(1,0,11,22,22,"cambiosLocal = 1", 0, 2, 0); /* m: 6 -> 0,11 */
 	reached0[6] = 1;
-	trans[0][3]	= settr(2,0,11,27,27,"cambiosLocal = 2", 0, 2, 0); /* m: 6 -> 0,11 */
+	trans[0][3]	= settr(2,0,11,23,23,"cambiosLocal = 2", 0, 2, 0); /* m: 6 -> 0,11 */
 	reached0[6] = 1;
-	trans[0][6]	= settr(5,0,11,28,28,"printf('Worker %d inicio\\n',id)", 0, 2, 0);
+	trans[0][6]	= settr(5,0,11,24,24,"printf('Worker %d inicio\\n',id)", 0, 2, 0);
 	T = trans[ 0][11] = settr(10,2,0,0,0,"ATOMIC", 1, 2, 0);
 	T->nxt	= settr(10,2,7,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][7]	= settr(6,4,12,29,29,"(!(mutex))", 1, 2, 0); /* m: 8 -> 12,0 */
+	trans[0][7]	= settr(6,4,12,25,25,"(!(mutex))", 1, 2, 0); /* m: 8 -> 12,0 */
 	reached0[8] = 1;
 	trans[0][8]	= settr(0,0,0,0,0,"mutex = 1",0,0,0);
 	trans[0][9]	= settr(0,0,0,0,0,"enSeccionCritica = (enSeccionCritica+1)",0,0,0);
 	trans[0][10]	= settr(0,0,0,0,0,"assert((enSeccionCritica==1))",0,0,0);
-	trans[0][12]	= settr(11,0,15,30,30,"cambiosTotales = (cambiosTotales+cambiosLocal)", 1, 2, 0);
+	trans[0][12]	= settr(11,0,15,26,26,"cambiosTotales = (cambiosTotales+cambiosLocal)", 1, 2, 0);
 	T = trans[ 0][15] = settr(14,2,0,0,0,"ATOMIC", 1, 2, 0);
 	T->nxt	= settr(14,2,13,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][13]	= settr(12,4,17,31,31,"enSeccionCritica = (enSeccionCritica-1)", 1, 2, 0); /* m: 14 -> 0,17 */
+	trans[0][13]	= settr(12,4,17,27,27,"enSeccionCritica = (enSeccionCritica-1)", 1, 2, 0); /* m: 14 -> 0,17 */
 	reached0[14] = 1;
 	trans[0][14]	= settr(0,0,0,0,0,"mutex = 0",0,0,0);
 	T = trans[ 0][17] = settr(16,2,0,0,0,"ATOMIC", 1, 2, 0);
 	T->nxt	= settr(16,2,16,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][16]	= settr(15,0,19,32,32,"sumaControl = (sumaControl+cambiosLocal)", 1, 2, 0);
+	trans[0][16]	= settr(15,0,19,28,28,"sumaControl = (sumaControl+cambiosLocal)", 1, 2, 0);
 	T = trans[ 0][19] = settr(18,2,0,0,0,"ATOMIC", 1, 2, 0);
 	T->nxt	= settr(18,2,18,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][18]	= settr(17,0,21,33,33,"workersTerminados = (workersTerminados+1)", 1, 2, 0); /* m: 20 -> 0,21 */
+	trans[0][18]	= settr(17,0,21,29,29,"workersTerminados = (workersTerminados+1)", 1, 2, 0); /* m: 20 -> 0,21 */
 	reached0[20] = 1;
 	trans[0][20]	= settr(0,0,0,0,0,"printf('Worker %d termino\\n',id)",0,0,0);
-	trans[0][21]	= settr(20,0,0,34,34,"-end-", 0, 3500, 0);
+	trans[0][21]	= settr(20,0,0,30,30,"-end-", 0, 3500, 0);
 	/* np_ demon: */
 	trans[_NP_] = (Trans **) emalloc(3*sizeof(Trans *));
 	T = trans[_NP_][0] = settr(9997,0,1,_T5,0,"(np_)", 1,2,0);

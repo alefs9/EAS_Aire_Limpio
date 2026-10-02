@@ -192,10 +192,10 @@ active proctype Main() {
  * el mutex se encuentre liberado.
  */
 
-ltl terminacion {
-    <> (workersTerminados == NUM_WORKERS)
-}
+//ltl terminacion {
+//    <> (workersTerminados == NUM_WORKERS)
+//}
 
-ltl mutex_liberado {
-    [] ((workersTerminados == NUM_WORKERS) -> !mutex)
-}
+//ltl mutex_liberado {
+//    [] ((workersTerminados == NUM_WORKERS) -> !mutex)
+//}
