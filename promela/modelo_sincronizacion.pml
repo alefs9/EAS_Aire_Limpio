@@ -1,12 +1,18 @@
+// Cantidad de workers utilizada en la implementación concurrente en Go.
 #define NUM_WORKERS 4
+
+// Se utilizan pocas iteraciones para reducir el espacio de estados analizado por SPIN.
 #define MAX_ITER    2   // Pocas iteraciones para facilitar el análisis con SPIN.
 
+// Se utilizan pocas iteraciones para reducir el espacio de estados analizado por SPIN.
+#define MAX_ITER 2
 
-int cambiosTotales    = 0;   // Cambios realizados por todos los workers.
-int sumaControl       = 0;   // Valor de referencia para verificar actualizaciones.
-int workersTerminados = 0;   // Cantidad de workers que ya terminaron.
-bool mutex            = false;  // Controla el acceso a cambiosTotales.
-int enSeccionCritica  = 0;   // Verifica que solo un worker entre a la vez.
+// Variables compartidas utilizadas para modelar y verificar la sincronización.
+int cambiosTotales    = 0;   // Acumula los cambios realizados por todos los workers.
+int sumaControl       = 0;   // Valor de referencia para detectar posibles actualizaciones perdidas.
+int workersTerminados = 0;   // Cantidad de workers que finalizaron su ejecución.
+bool mutex            = false;  // Representa el mutex utilizado en Go para proteger cambiosTotales.
+int enSeccionCritica  = 0;   // Permite comprobar que solo un worker accede a la sección crítica.
 
 
 /*
@@ -38,6 +44,12 @@ proctype Worker(int id) {
     atomic {
         !mutex -> mutex = true;
         enSeccionCritica++;
+
+    /*
+    * Propiedad de exclusión mutua:
+    * nunca debe existir más de un worker dentro
+    * de la sección crítica simultáneamente.
+    */
         assert(enSeccionCritica == 1);
     }
 
@@ -167,6 +179,23 @@ active proctype Main() {
  * Propiedad de terminación:
  * eventualmente los 4 workers deben haber terminado.
  */
+
+
+/*
+ * Propiedades LTL utilizadas para la verificación formal con SPIN.
+ *
+ * terminacion:
+ * Verifica que eventualmente todos los workers finalicen.
+ *
+ * mutex_liberado:
+ * Verifica que, una vez que todos los workers han terminado,
+ * el mutex se encuentre liberado.
+ */
+
 ltl terminacion {
     <> (workersTerminados == NUM_WORKERS)
+}
+
+ltl mutex_liberado {
+    [] ((workersTerminados == NUM_WORKERS) -> !mutex)
 }

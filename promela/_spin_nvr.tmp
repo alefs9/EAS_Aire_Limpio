@@ -1,0 +1,16 @@
+never terminacion {    /* !(<> ((workersTerminados==4))) */
+accept_init:
+T0_init:
+	do
+	:: (! (((workersTerminados==4)))) -> goto T0_init
+	od;
+}
+never mutex_liberado {    /* !([] ((! ((workersTerminados==4))) || (! (mutex)))) */
+T0_init:
+	do
+	:: atomic { (! (((! ((workersTerminados==4))) || (! (mutex))))) -> assert(!(! (((! ((workersTerminados==4))) || (! (mutex)))))) }
+	:: (1) -> goto T0_init
+	od;
+accept_all:
+	skip
+}
