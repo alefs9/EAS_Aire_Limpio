@@ -132,13 +132,13 @@
 		_m = 3; goto P999; /* 0 */
 
 		 /* PROC Main */
-	case 7: // STATE 1 - modelo_sincronizacion.pml:96 - [((iter<2))] (0:0:0 - 1)
+	case 7: // STATE 1 - modelo_sincronizacion.pml:104 - [((iter<2))] (0:0:0 - 1)
 		IfNotBlocked
 		reached[1][1] = 1;
 		if (!((((P1 *)_this)->iter<2)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 8: // STATE 2 - modelo_sincronizacion.pml:101 - [cambiosTotales = 0] (0:0:1 - 1)
+	case 8: // STATE 2 - modelo_sincronizacion.pml:109 - [cambiosTotales = 0] (0:0:1 - 1)
 		IfNotBlocked
 		reached[1][2] = 1;
 		(trpt+1)->bup.oval = now.cambiosTotales;
@@ -148,7 +148,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 9: // STATE 3 - modelo_sincronizacion.pml:102 - [sumaControl = 0] (0:0:1 - 1)
+	case 9: // STATE 3 - modelo_sincronizacion.pml:110 - [sumaControl = 0] (0:0:1 - 1)
 		IfNotBlocked
 		reached[1][3] = 1;
 		(trpt+1)->bup.oval = now.sumaControl;
@@ -158,7 +158,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 10: // STATE 4 - modelo_sincronizacion.pml:103 - [workersTerminados = 0] (0:0:1 - 1)
+	case 10: // STATE 4 - modelo_sincronizacion.pml:111 - [workersTerminados = 0] (0:0:1 - 1)
 		IfNotBlocked
 		reached[1][4] = 1;
 		(trpt+1)->bup.oval = now.workersTerminados;
@@ -168,7 +168,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 11: // STATE 5 - modelo_sincronizacion.pml:111 - [i = 0] (0:0:1 - 1)
+	case 11: // STATE 5 - modelo_sincronizacion.pml:119 - [i = 0] (0:0:1 - 1)
 		IfNotBlocked
 		reached[1][5] = 1;
 		(trpt+1)->bup.oval = ((P1 *)_this)->i;
@@ -178,19 +178,19 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 12: // STATE 6 - modelo_sincronizacion.pml:114 - [((i<4))] (0:0:0 - 1)
+	case 12: // STATE 6 - modelo_sincronizacion.pml:122 - [((i<4))] (0:0:0 - 1)
 		IfNotBlocked
 		reached[1][6] = 1;
 		if (!((((P1 *)_this)->i<4)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 13: // STATE 7 - modelo_sincronizacion.pml:115 - [(run Worker(i))] (0:0:0 - 1)
+	case 13: // STATE 7 - modelo_sincronizacion.pml:123 - [(run Worker(i))] (0:0:0 - 1)
 		IfNotBlocked
 		reached[1][7] = 1;
 		if (!(addproc(II, 1, 0, ((P1 *)_this)->i)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 14: // STATE 8 - modelo_sincronizacion.pml:116 - [i = (i+1)] (0:0:1 - 1)
+	case 14: // STATE 8 - modelo_sincronizacion.pml:124 - [i = (i+1)] (0:0:1 - 1)
 		IfNotBlocked
 		reached[1][8] = 1;
 		(trpt+1)->bup.oval = ((P1 *)_this)->i;
@@ -200,7 +200,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 15: // STATE 9 - modelo_sincronizacion.pml:118 - [((i>=4))] (0:0:1 - 1)
+	case 15: // STATE 9 - modelo_sincronizacion.pml:126 - [((i>=4))] (0:0:1 - 1)
 		IfNotBlocked
 		reached[1][9] = 1;
 		if (!((((P1 *)_this)->i>=4)))
@@ -212,24 +212,24 @@
 #endif
 			((P1 *)_this)->i = 0;
 		_m = 3; goto P999; /* 0 */
-	case 16: // STATE 14 - modelo_sincronizacion.pml:128 - [((workersTerminados==4))] (0:0:0 - 3)
+	case 16: // STATE 14 - modelo_sincronizacion.pml:136 - [((workersTerminados==4))] (0:0:0 - 3)
 		IfNotBlocked
 		reached[1][14] = 1;
 		if (!((now.workersTerminados==4)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 17: // STATE 15 - modelo_sincronizacion.pml:134 - [assert((cambiosTotales==sumaControl))] (0:0:0 - 1)
+	case 17: // STATE 15 - modelo_sincronizacion.pml:142 - [assert((cambiosTotales==sumaControl))] (0:0:0 - 1)
 		IfNotBlocked
 		reached[1][15] = 1;
 		spin_assert((now.cambiosTotales==now.sumaControl), "(cambiosTotales==sumaControl)", II, tt, t);
 		_m = 3; goto P999; /* 0 */
-	case 18: // STATE 16 - modelo_sincronizacion.pml:141 - [((cambiosTotales==0))] (0:0:0 - 1)
+	case 18: // STATE 16 - modelo_sincronizacion.pml:149 - [((cambiosTotales==0))] (0:0:0 - 1)
 		IfNotBlocked
 		reached[1][16] = 1;
 		if (!((now.cambiosTotales==0)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 19: // STATE 17 - modelo_sincronizacion.pml:142 - [printf('Convergencia alcanzada en iter %d\\n',iter)] (0:31:0 - 1)
+	case 19: // STATE 17 - modelo_sincronizacion.pml:150 - [printf('Convergencia alcanzada en iter %d\\n',iter)] (0:31:0 - 1)
 		IfNotBlocked
 		reached[1][17] = 1;
 		Printf("Convergencia alcanzada en iter %d\n", ((P1 *)_this)->iter);
@@ -243,7 +243,7 @@
 		reached[1][30] = 1;
 		Printf("Terminado sin errores de sincronizacion\n");
 		_m = 3; goto P999; /* 3 */
-	case 20: // STATE 20 - modelo_sincronizacion.pml:150 - [(1)] (26:0:1 - 1)
+	case 20: // STATE 20 - modelo_sincronizacion.pml:158 - [(1)] (26:0:1 - 1)
 		IfNotBlocked
 		reached[1][20] = 1;
 		if (!(1))
@@ -263,7 +263,7 @@
 		reached[1][27] = 1;
 		;
 		_m = 3; goto P999; /* 3 */
-	case 21: // STATE 23 - modelo_sincronizacion.pml:153 - [iter = (iter+1)] (0:26:1 - 2)
+	case 21: // STATE 23 - modelo_sincronizacion.pml:161 - [iter = (iter+1)] (0:26:1 - 2)
 		IfNotBlocked
 		reached[1][23] = 1;
 		(trpt+1)->bup.oval = ((P1 *)_this)->iter;
@@ -276,7 +276,7 @@
 		reached[1][27] = 1;
 		;
 		_m = 3; goto P999; /* 1 */
-	case 22: // STATE 24 - modelo_sincronizacion.pml:156 - [((iter>=2))] (31:0:1 - 1)
+	case 22: // STATE 24 - modelo_sincronizacion.pml:164 - [((iter>=2))] (31:0:1 - 1)
 		IfNotBlocked
 		reached[1][24] = 1;
 		if (!((((P1 *)_this)->iter>=2)))
@@ -297,7 +297,7 @@
 		reached[1][30] = 1;
 		Printf("Terminado sin errores de sincronizacion\n");
 		_m = 3; goto P999; /* 3 */
-	case 23: // STATE 29 - modelo_sincronizacion.pml:161 - [printf('Todos los workers terminaron\\n')] (0:31:0 - 5)
+	case 23: // STATE 29 - modelo_sincronizacion.pml:169 - [printf('Todos los workers terminaron\\n')] (0:31:0 - 5)
 		IfNotBlocked
 		reached[1][29] = 1;
 		Printf("Todos los workers terminaron\n");
@@ -305,14 +305,14 @@
 		reached[1][30] = 1;
 		Printf("Terminado sin errores de sincronizacion\n");
 		_m = 3; goto P999; /* 1 */
-	case 24: // STATE 31 - modelo_sincronizacion.pml:163 - [-end-] (0:0:0 - 1)
+	case 24: // STATE 31 - modelo_sincronizacion.pml:171 - [-end-] (0:0:0 - 1)
 		IfNotBlocked
 		reached[1][31] = 1;
 		if (!delproc(1, II)) continue;
 		_m = 3; goto P999; /* 0 */
 
 		 /* PROC Worker */
-	case 25: // STATE 1 - modelo_sincronizacion.pml:25 - [cambiosLocal = 0] (0:11:1 - 1)
+	case 25: // STATE 1 - modelo_sincronizacion.pml:27 - [cambiosLocal = 0] (0:11:1 - 1)
 		IfNotBlocked
 		reached[0][1] = 1;
 		(trpt+1)->bup.oval = ((P0 *)_this)->cambiosLocal;
@@ -328,7 +328,7 @@
 		reached[0][6] = 1;
 		Printf("Worker %d inicio\n", ((P0 *)_this)->id);
 		_m = 3; goto P999; /* 2 */
-	case 26: // STATE 2 - modelo_sincronizacion.pml:26 - [cambiosLocal = 1] (0:11:1 - 1)
+	case 26: // STATE 2 - modelo_sincronizacion.pml:28 - [cambiosLocal = 1] (0:11:1 - 1)
 		IfNotBlocked
 		reached[0][2] = 1;
 		(trpt+1)->bup.oval = ((P0 *)_this)->cambiosLocal;
@@ -344,7 +344,7 @@
 		reached[0][6] = 1;
 		Printf("Worker %d inicio\n", ((P0 *)_this)->id);
 		_m = 3; goto P999; /* 2 */
-	case 27: // STATE 3 - modelo_sincronizacion.pml:27 - [cambiosLocal = 2] (0:11:1 - 1)
+	case 27: // STATE 3 - modelo_sincronizacion.pml:29 - [cambiosLocal = 2] (0:11:1 - 1)
 		IfNotBlocked
 		reached[0][3] = 1;
 		(trpt+1)->bup.oval = ((P0 *)_this)->cambiosLocal;
@@ -360,12 +360,12 @@
 		reached[0][6] = 1;
 		Printf("Worker %d inicio\n", ((P0 *)_this)->id);
 		_m = 3; goto P999; /* 2 */
-	case 28: // STATE 6 - modelo_sincronizacion.pml:30 - [printf('Worker %d inicio\\n',id)] (0:11:0 - 4)
+	case 28: // STATE 6 - modelo_sincronizacion.pml:32 - [printf('Worker %d inicio\\n',id)] (0:11:0 - 4)
 		IfNotBlocked
 		reached[0][6] = 1;
 		Printf("Worker %d inicio\n", ((P0 *)_this)->id);
 		_m = 3; goto P999; /* 0 */
-	case 29: // STATE 7 - modelo_sincronizacion.pml:39 - [(!(mutex))] (12:0:2 - 1)
+	case 29: // STATE 7 - modelo_sincronizacion.pml:41 - [(!(mutex))] (12:0:2 - 1)
 		IfNotBlocked
 		reached[0][7] = 1;
 		if (!( !(((int)now.mutex))))
@@ -391,7 +391,7 @@
 		reached[0][10] = 1;
 		spin_assert((now.enSeccionCritica==1), "(enSeccionCritica==1)", II, tt, t);
 		_m = 3; goto P999; /* 3 */
-	case 30: // STATE 12 - modelo_sincronizacion.pml:53 - [cambiosTotales = (cambiosTotales+cambiosLocal)] (0:0:1 - 1)
+	case 30: // STATE 12 - modelo_sincronizacion.pml:61 - [cambiosTotales = (cambiosTotales+cambiosLocal)] (0:0:1 - 1)
 		IfNotBlocked
 		reached[0][12] = 1;
 		(trpt+1)->bup.oval = now.cambiosTotales;
@@ -401,7 +401,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 31: // STATE 13 - modelo_sincronizacion.pml:60 - [enSeccionCritica = (enSeccionCritica-1)] (0:17:2 - 1)
+	case 31: // STATE 13 - modelo_sincronizacion.pml:68 - [enSeccionCritica = (enSeccionCritica-1)] (0:17:2 - 1)
 		IfNotBlocked
 		reached[0][13] = 1;
 		(trpt+1)->bup.ovals = grab_ints(2);
@@ -420,7 +420,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 1 */
-	case 32: // STATE 16 - modelo_sincronizacion.pml:70 - [sumaControl = (sumaControl+cambiosLocal)] (0:0:1 - 1)
+	case 32: // STATE 16 - modelo_sincronizacion.pml:78 - [sumaControl = (sumaControl+cambiosLocal)] (0:0:1 - 1)
 		IfNotBlocked
 		reached[0][16] = 1;
 		(trpt+1)->bup.oval = now.sumaControl;
@@ -430,7 +430,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 33: // STATE 18 - modelo_sincronizacion.pml:78 - [workersTerminados = (workersTerminados+1)] (0:21:1 - 1)
+	case 33: // STATE 18 - modelo_sincronizacion.pml:86 - [workersTerminados = (workersTerminados+1)] (0:21:1 - 1)
 		IfNotBlocked
 		reached[0][18] = 1;
 		(trpt+1)->bup.oval = now.workersTerminados;
@@ -443,7 +443,7 @@
 		reached[0][20] = 1;
 		Printf("Worker %d termino\n", ((P0 *)_this)->id);
 		_m = 3; goto P999; /* 1 */
-	case 34: // STATE 21 - modelo_sincronizacion.pml:82 - [-end-] (0:0:0 - 1)
+	case 34: // STATE 21 - modelo_sincronizacion.pml:90 - [-end-] (0:0:0 - 1)
 		IfNotBlocked
 		reached[0][21] = 1;
 		if (!delproc(1, II)) continue;
