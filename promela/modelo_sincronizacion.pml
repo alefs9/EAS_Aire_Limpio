@@ -167,6 +167,15 @@ active proctype Main() {
  * Propiedad de terminación:
  * eventualmente los 4 workers deben haber terminado.
  */
+
+
+
 ltl terminacion {
-    <> (workersTerminados == NUM_WORKERS)
+   <> (workersTerminados == NUM_WORKERS)
+ }
+
+
+
+ltl mutex_liberado {
+    [] ((workersTerminados == NUM_WORKERS) -> !mutex)
 }
